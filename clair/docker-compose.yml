@@ -1,0 +1,25 @@
+version: ### latest supported version for compatibility
+
+services:
+  clair:
+    image: ### Use a suitable/ latest Clair Docker image, refer https://quay.io/ repository
+    ports:
+      ### maps host port to container port for Clair API
+    restart: ### container must restart if it crashes
+    depends_on:
+      ### Clair should wait for database to start
+    environment:
+      - CLAIR_DATABASE=postgres://username:password@postgres:5432/clair6000?sslmode=disable
+      - CLAIR_UPDATER_ENABLED=true
+      - CLAIR_NOTIFIERS_ENABLED=true
+      - CLAIR_NOTIFIERS_ENDPOINT=http://clair-notifier:6061/notify
+      - CLAIR_API_MAXCONN=1024
+
+  postgres:
+    image: ### Use a suitable postgres image
+    environment:
+      ### Sets the username and password for the database
+    volumes:
+      ### Stores database files persistently on your local system.
+
+### ensures the database files are stored persistently across container restarts.
