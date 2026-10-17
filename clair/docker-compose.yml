@@ -9,9 +9,9 @@ services:
         condition: service_healthy
     environment:
       CLAIR_MODE: combo
-      CLAIR_CONF: /etc/clair/config.yml
+      CLAIR_CONF: /etc/clair/config.yaml
     volumes:
-      - ./config.yml:/etc/clair/config.yml:ro
+      - ./config.yml:/etc/clair/config.yaml:ro
 
   postgres:
     image: postgres:17-alpine
