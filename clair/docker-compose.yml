@@ -1,4 +1,4 @@
-version: ### latest supported version for compatibility
+version: 1.0
 
 services:
   clair:
@@ -15,11 +15,21 @@ services:
       - CLAIR_NOTIFIERS_ENDPOINT=http://clair-notifier:6061/notify
       - CLAIR_API_MAXCONN=1024
 
-  postgres:
-    image: ### Use a suitable postgres image
+postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
     environment:
-      ### Sets the username and password for the database
+      POSTGRES_USER: clair
+      POSTGRES_PASSWORD: clairpass
+      POSTGRES_DB: clair6000
     volumes:
-      ### Stores database files persistently on your local system.
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clair -d clair6000"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
-### ensures the database files are stored persistently across container restarts.
+volumes:
+  postgres-data:
