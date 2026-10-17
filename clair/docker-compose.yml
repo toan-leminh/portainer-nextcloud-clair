@@ -1,6 +1,6 @@
 services:
   clair:
-    image: quay.io/projectquay/clair:v4.9.0
+    image: quay.io/projectquay/clair:4.9.0
     ports:
       - "6063:6060"
     restart: unless-stopped
