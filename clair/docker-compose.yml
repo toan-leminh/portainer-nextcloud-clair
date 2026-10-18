@@ -3,7 +3,7 @@ services:
     image: quay.io/projectquay/clair:4.9.0
     ports:
       - "6063:6063"
-    restart: none
+    restart: "no"
     depends_on:
       postgres:
         condition: service_healthy
