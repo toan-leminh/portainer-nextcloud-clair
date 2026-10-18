@@ -1,7 +1,7 @@
 
 http_listen_addr: ":6060"
 introspection_addr: ":6061"
-updater:
+updaters:
   sets:
     - "alpine"
     - "ubuntu"
