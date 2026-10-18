@@ -1,31 +1,30 @@
-version: 1.0
-
 services:
   clair:
-    image: ### Use a suitable/ latest Clair Docker image, refer https://quay.io/ repository
+    image: quay.io/projectquay/clair:4.9.0
     ports:
-      ### maps host port to container port for Clair API
-    restart: ### container must restart if it crashes
+      - "6061:6061"
+      - "6060:6060"
+    restart: unless-stopped
     depends_on:
-      ### Clair should wait for database to start
+      postgres:
+        condition: service_healthy
     environment:
-      - CLAIR_DATABASE=postgres://username:password@postgres:5432/clair6000?sslmode=disable
-      - CLAIR_UPDATER_ENABLED=true
-      - CLAIR_NOTIFIERS_ENABLED=true
-      - CLAIR_NOTIFIERS_ENDPOINT=http://clair-notifier:6061/notify
-      - CLAIR_API_MAXCONN=1024
+      CLAIR_MODE: combo
+      CLAIR_CONF: /etc/clair/config.yaml
+    volumes:
+      - ./config.yml:/etc/clair/config.yaml:ro
 
-postgres:
+  postgres:
     image: postgres:17-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: clair
       POSTGRES_PASSWORD: clairpass
-      POSTGRES_DB: clair6000
+      POSTGRES_DB: clairdb
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U clair -d clair6000"]
+      test: ["CMD-SHELL", "pg_isready -U clair -d clairdb"]
       interval: 5s
       timeout: 5s
       retries: 10

@@ -1,0 +1,21 @@
+
+http_listen_addr: ":6060"
+introspection_addr: ":6061"
+updaters:
+  sets:
+    - "debian"
+
+indexer:
+  connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
+  migrations: true
+
+matcher:
+  connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
+  migrations: true
+  period: "24h"
+
+notifier:
+  connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
+  migrations: true
+  delivery_interval: "5m"
+  poll_interval: "10m"
