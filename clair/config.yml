@@ -3,8 +3,7 @@ http_listen_addr: ":6060"
 introspection_addr: ":6061"
 updaters:
   sets:
-    - "alpine"
-    - "ubuntu"
+    - "debian"
 
 indexer:
   connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
@@ -13,7 +12,7 @@ indexer:
 matcher:
   connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
   migrations: true
-  disable_updaters: true 
+  period: "24h"
 
 notifier:
   connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
