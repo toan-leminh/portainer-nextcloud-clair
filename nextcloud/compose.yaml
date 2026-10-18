@@ -1,7 +1,9 @@
 version: "3.9"
 services:
   nc:
-    image: nextcloud:apache
+    #image: nextcloud:apache
+    build: .
+    image: nextcloud-custom:apache
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PASSWORD=nextcloud
