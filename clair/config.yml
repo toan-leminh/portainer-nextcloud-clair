@@ -1,16 +1,10 @@
 
-http_listen_addr: "0.0.0.0:6060"
-introspection_addr: "0.0.0.0:6061"
-log_level: info
+http_listen_addr: ":6060"
+introspection_addr: ":6061"
+database:
+  type: pgsql
+  options:
+    source: "host=clair-db port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
 
-indexer:
-  connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clair6000 sslmode=disable"
-  migrations: true
-
-matcher:
-  connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clair6000 sslmode=disable"
-  migrations: true
-
-notifier:
-  connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clair6000 sslmode=disable"
-  migrations: true
+updater:
+  interval: "12h"
