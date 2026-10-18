@@ -2,7 +2,8 @@ services:
   clair:
     image: quay.io/projectquay/clair:4.9.0
     ports:
-      - "6063:6063"
+      - "6061:6061"
+      - "6060:6060"
     restart: "no"
     depends_on:
       postgres:
