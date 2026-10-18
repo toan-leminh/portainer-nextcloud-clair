@@ -13,7 +13,3 @@ matcher:
 notifier:
   connstring: "host=postgres port=5432 user=clair password=clairpass dbname=clairdb sslmode=disable"
   migrations: true
-
-
-updater:
-  interval: "12h"
